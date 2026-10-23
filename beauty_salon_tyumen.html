@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison de Beauté | Парикмахер-стилист Тюмень</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'luxe-bg': '#FAF8F5',
+                        'luxe-card': '#FFFFFF',
+                        'luxe-gold': '#C5A059',
+                        'luxe-gold-hover': '#B08B46',
+                        'luxe-gold-light': '#F6F0E4',
+                        'luxe-champagne': '#F3EBDD',
+                        'luxe-dark': '#1C1917',
+                        'luxe-muted': '#78716C',
+                        'luxe-border': '#E7E2D8'
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'luxe': '0 20px 50px -10px rgba(197, 160, 89, 0.08), 0 10px 30px -15px rgba(28, 25, 23, 0.05)',
+                        'luxe-hover': '0 30px 60px -12px rgba(197, 160, 89, 0.18), 0 15px 35px -10px rgba(28, 25, 23, 0.08)',
+                        'glow': '0 0 25px rgba(197, 160, 89, 0.35)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #1C1917;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        /* Custom Tab transitions */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Shimmer animation on hover */
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                60deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.25) 50%,
+                transparent 70%
+            );
+            transform: rotate(30deg) translateX(-100%);
+            transition: transform 0.8s ease-in-out;
+        }
+        .shimmer-btn:hover::after {
+            transform: rotate(30deg) translateX(100%);
+        }
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(231, 226, 216, 0.8);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A059;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-luxe-gold selection:text-white relative">
+
+    <!-- Ambient Luxe Background Lights -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-amber-100/40 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-10 right-10 w-[30rem] h-[30rem] bg-stone-200/40 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-luxe-border/60 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-4 cursor-pointer" onclick="switchTab('home')">
+                <div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-stone-900 to-stone-800 p-[1px] shadow-md">
+                    <div class="w-full h-full rounded-full bg-stone-900 flex items-center justify-center border border-luxe-gold/40">
+                        <span class="font-serif-title text-2xl font-light text-luxe-gold tracking-widest italic">É</span>
+                    </div>
+                </div>
+                <div>
+                    <span class="block font-serif-title text-2xl sm:text-3xl font-medium tracking-wide text-luxe-dark leading-none">ÉLÉGANCE</span>
+                    <span class="text-[10px] tracking-[0.25em] text-luxe-gold uppercase font-semibold mt-1 block">HAUTE COIFFURE • ТЮМЕНЬ</span>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex space-x-1 sm:space-x-2 bg-stone-200/50 p-1.5 rounded-full border border-stone-300/40 backdrop-blur-md">
+                <button onclick="switchTab('home')" id="tab-home" class="nav-btn px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 bg-luxe-dark text-white shadow-md">
+                    Главная
+                </button>
+                <button onclick="switchTab('services')" id="tab-services" class="nav-btn px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 text-luxe-muted hover:text-luxe-dark">
+                    Услуги и прайс
+                </button>
+                <button onclick="switchTab('reviews')" id="tab-reviews" class="nav-btn px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 text-luxe-muted hover:text-luxe-dark">
+                    Отзывы
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 flex-grow w-full">
+
+        <!-- ================= TAB 1: ГЛАВНАЯ (HERO & MANIFESTO) ================= -->
+        <section id="content-home" class="tab-content active space-y-16">
+            
+            <!-- Hero Section -->
+            <div class="relative bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 sm:p-16 border border-luxe-border/80 shadow-luxe overflow-hidden">
+                <!-- Decorative Gold Accent Elements -->
+                <div class="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-luxe-gold/10 via-amber-50/20 to-transparent rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute top-6 right-8 text-luxe-gold/20 font-serif-title text-8xl font-extralight select-none pointer-events-none hidden lg:block">LUXE</div>
+
+                <div class="max-w-3xl space-y-8 relative z-10">
+                    
+                    <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-luxe-gold-light border border-luxe-gold/30 text-luxe-gold text-xs font-semibold tracking-wider uppercase">
+                        <span class="w-2 h-2 rounded-full bg-luxe-gold animate-pulse"></span>
+                        <span>Ателье красоты премиум-класса</span>
+                    </div>
+
+                    <h1 class="font-serif-title text-4xl sm:text-6xl lg:text-7xl font-normal text-luxe-dark leading-[1.08] tracking-tight">
+                        Искусство преображения <br>
+                        <span class="italic font-light text-transparent bg-clip-text bg-gradient-to-r from-luxe-gold via-amber-600 to-luxe-gold">с 15-летним опытом</span>
+                    </h1>
+
+                    <p class="text-luxe-muted leading-relaxed text-base sm:text-lg font-light max-w-2xl">
+                        Премиальный уход за волосами и создание утонченных персональных образов в Тюмени. Каждая процедура — это гармоничный ритуал красоты, основанный на экспертном мастерстве, авторских техниках и бережном отношении к вашему стилю.
+                    </p>
+
+                    <!-- Key Master Badge -->
+                    <div class="p-6 rounded-2xl bg-stone-900 text-white border border-stone-800 shadow-lg relative overflow-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-luxe-gold/20 rounded-full blur-xl pointer-events-none"></div>
+                        <div class="space-y-1 relative z-10">
+                            <span class="text-xs uppercase tracking-widest text-luxe-gold font-semibold">Персональный стилист</span>
+                            <h3 class="font-serif-title text-2xl font-light text-stone-100">Более 15 лет высочайшего мастерства</h3>
+                            <p class="text-xs text-stone-400">Спецификация: сложные окрашивания, реконструкция волос, кутюрные стрижки.</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-luxe-gold font-serif-title text-3xl font-light whitespace-nowrap">
+                            <i class="fa-solid fa-award text-xl"></i>
+                            <span>15+ Лет</span>
+                        </div>
+                    </div>
+
+                    <!-- Counter Stats -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4 border-t border-luxe-border/60">
+                        <div class="space-y-1">
+                            <div class="font-serif-title text-3xl font-normal text-luxe-dark">15+ Лет</div>
+                            <div class="text-xs text-luxe-muted font-light">Безупречного опыта в индустрии</div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="font-serif-title text-3xl font-normal text-luxe-dark">5000+</div>
+                            <div class="text-xs text-luxe-muted font-light">Счастливых довольных клиентов</div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="font-serif-title text-3xl font-normal text-luxe-dark">100%</div>
+                            <div class="text-xs text-luxe-muted font-light">Гарантия качества и индивидуальности</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Buttons Area -->
+                    <div class="pt-6 flex flex-wrap items-center justify-start gap-5">
+                        <!-- Left Button: Booking Modal Trigger -->
+                        <button onclick="openBookingModal()" class="shimmer-btn px-8 py-4 rounded-full bg-gradient-to-r from-luxe-gold to-luxe-gold-hover text-white font-medium text-sm tracking-wide transition-all duration-300 shadow-luxe hover:shadow-luxe-hover flex items-center gap-3 transform hover:-translate-y-0.5">
+                            <i class="fa-regular fa-calendar-check text-base"></i>
+                            <span>Записаться на прием</span>
+                        </button>
+
+                        <!-- Right Button: Address Link 2GIS -->
+                        <a href="https://2gis.ru/tyumen/geo/70000001090065178" target="_blank" rel="noopener noreferrer" class="px-8 py-4 rounded-full bg-white hover:bg-stone-50 text-luxe-dark font-medium text-sm tracking-wide transition-all duration-300 flex items-center gap-3 border border-luxe-border shadow-sm hover:shadow">
+                            <i class="fa-solid fa-location-dot text-luxe-gold text-base"></i>
+                            <span>Адрес салона</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[11px] text-stone-400"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Stylist Manifesto / Quote -->
+            <div class="relative bg-gradient-to-r from-luxe-champagne/60 via-white to-luxe-champagne/60 p-10 sm:p-14 rounded-[2rem] border border-luxe-gold/20 text-center space-y-4 shadow-sm">
+                <i class="fa-solid fa-quote-left text-3xl text-luxe-gold/50"></i>
+                <blockquote class="font-serif-title text-2xl sm:text-3xl text-stone-800 italic max-w-3xl mx-auto leading-relaxed">
+                    «Истинная роскошь заключается в деталях и ощущении собственной неотразимости. Моя задача — подчеркнуть вашу природную красоту, создав образ, который вдохновляет.»
+                </blockquote>
+                <div class="pt-2">
+                    <span class="text-xs uppercase tracking-[0.2em] text-luxe-gold font-bold">Ваш парикмахер-стилист</span>
+                </div>
+            </div>
+
+            <!-- Premium Philosophy Pillars -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white/90 p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xl font-serif-title font-semibold">
+                        01
+                    </div>
+                    <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Персональный подход</h3>
+                    <p class="text-xs sm:text-sm text-luxe-muted font-light leading-relaxed">
+                        Тщательная диагностика структуры волос, подбор оттенков с учетом вашего цветотипа и образа жизни.
+                    </p>
+                </div>
+
+                <div class="bg-white/90 p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xl font-serif-title font-semibold">
+                        02
+                    </div>
+                    <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Премиум продукты</h3>
+                    <p class="text-xs sm:text-sm text-luxe-muted font-light leading-relaxed">
+                        Использование только лучших сертифицированных европейских составов и уходовых компонентов.
+                    </p>
+                </div>
+
+                <div class="bg-white/90 p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all duration-300 space-y-4">
+                    <div class="w-12 h-12 rounded-2xl bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xl font-serif-title font-semibold">
+                        03
+                    </div>
+                    <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Атмосфера релакса</h3>
+                    <p class="text-xs sm:text-sm text-luxe-muted font-light leading-relaxed">
+                        Уютное пространство в Тюмени, где можно отвлечься от городской суеты за чашкой изысканного кофе.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TAB 2: УСЛУГИ И ПРАЙС ================= -->
+        <section id="content-services" class="tab-content space-y-10">
+            
+            <!-- Header & Search Controls -->
+            <div class="bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-luxe-border shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <span class="text-xs uppercase tracking-widest text-luxe-gold font-semibold">Коллекция процедур</span>
+                    <h2 class="font-serif-title text-3xl sm:text-4xl font-normal text-luxe-dark mt-1">Услуги и инвестиции в красоту</h2>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-luxe-gold text-sm"></i>
+                    <input type="text" id="service-search" oninput="filterServices()" placeholder="Поиск процедуры..." class="w-full pl-11 pr-4 py-3 rounded-full bg-stone-50 border border-luxe-border text-xs sm:text-sm focus:outline-none focus:border-luxe-gold focus:bg-white transition-all shadow-inner">
+                </div>
+            </div>
+
+            <!-- Services Grid by Categories -->
+            <div id="services-container" class="space-y-12">
+
+                <!-- Category 1 -->
+                <div class="category-block space-y-6">
+                    <div class="flex items-center gap-3 pb-3 border-b border-luxe-border">
+                        <div class="w-8 h-8 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-sparkles"></i>
+                        </div>
+                        <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Брови и лицо</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <!-- Item -->
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Коррекция бровей</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 900 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Создание гармоничной архитектуры бровей с учетом индивидуальных особенностей лица.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Окрашивание бровей</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 900 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Подбор стойкого естественного пигмента для насыщенного визуала.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Окрашивание и коррекция бровей</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 1 600 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Комплексный уход для создания совершенной формы и выразительного взгляда.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Item -->
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Удаление нежелательных волосков на лице (1 зона)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">300 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Деликатное и безболезненное удаление лишних волосков профессиональным воском или нитью.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 15 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Category 2 -->
+                <div class="category-block space-y-6">
+                    <div class="flex items-center gap-3 pb-3 border-b border-luxe-border">
+                        <div class="w-8 h-8 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-spa"></i>
+                        </div>
+                        <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Уход за волосами и процедуры</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Биохимия</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 3 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Мягкая завивка нового поколения, сохраняющая естественное здоровье и эластичность локонов.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 2 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Восстанавливающая процедура ботокс</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 3 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Глубокое тотальное наполнение структуры волоса нутриентами, разглаживание и блеск.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 2 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Кератиновое выпрямление волос</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 5 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Идеально гладкие, шелковистые и послушные волосы с зеркальным блеском на долгое время.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 3 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Консультация</h4>
+                                    <span class="font-medium text-emerald-700 text-sm bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full whitespace-nowrap">Бесплатно</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Персональный разбор состояния волос и подбор идеальной программы преображения.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 15 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Снятие секущихся волос</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 1 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Аккуратное устранение поврежденных кончиков с сохранением длины волос.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Стрижка челки</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 600 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Подбор формы челки для обновления привычного образа.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Холодное восстановление</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 3 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Интенсивный SPA-уход без термовоздействия для глубокой регенерации сухих волос.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 2 ч 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Уход для волос ETERNO</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">3 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Элитная программа омоложения и восстановления естественной защиты волоса ETERNO.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Category 3 -->
+                <div class="category-block space-y-6">
+                    <div class="flex items-center gap-3 pb-3 border-b border-luxe-border">
+                        <div class="w-8 h-8 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-scissors"></i>
+                        </div>
+                        <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Стрижки</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Детская стрижка</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">1 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Заботливый подход и стильный образ для вашего ребенка.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 40 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Детская стрижка (девочки до 10 лет)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 1 200 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Аккуратная стрижка с укладкой для юных принцесс.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 45 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Женская стрижка (длинные волосы)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">2 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Кутюрная геометрия стрижки, создающая объем и лёгкость движения длинных волос.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Женская стрижка (короткие волосы)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 1 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Элегантные текстурные формы для динамичного короткого силуэта.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Женская стрижка (средние волосы)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">2 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Классические и современные решения для гармоничной средней длины.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Мужская стрижка (модельная)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">1 200 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Четкие формы, индивидуальная проработка силуэта и укладка.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Мужская стрижка (под насадку)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">1 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Быстрая и аккуратная классическая стрижка с ровной окантовкой.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Мужская стрижка (средние волосы)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">1 500 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Стильная удлиненная стрижка с мягкой градуировкой.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 1 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Category 4 -->
+                <div class="category-block space-y-6">
+                    <div class="flex items-center gap-3 pb-3 border-b border-luxe-border">
+                        <div class="w-8 h-8 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center text-xs">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <h3 class="font-serif-title text-2xl font-medium text-luxe-dark">Окрашивание и полный образ</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Полный образ (легкий макияж + укладка)</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 6 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Создание эффектного праздничного или вечернего образа для любых важных событий.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 2 ч 30 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Камуфляж седины мужчинами</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 1 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Естественное и незаметное мягкое тонирование седины без эффекта окрашенных волос.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 20 мин</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="service-item bg-white p-6 rounded-2xl border border-luxe-border/80 hover:border-luxe-gold/50 transition-all duration-300 shadow-sm hover:shadow-luxe flex flex-col justify-between group">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-start gap-4">
+                                    <h4 class="font-serif-title text-xl font-medium text-stone-900 group-hover:text-luxe-gold transition-colors service-title">Креативное окрашивание</h4>
+                                    <span class="font-medium text-stone-900 text-sm bg-luxe-gold-light px-3 py-1 rounded-full whitespace-nowrap">от 6 000 ₽</span>
+                                </div>
+                                <p class="text-xs text-luxe-muted font-light">Сложные современные техники (Airtouch, Balayage, Шатуш) с многомерными переходами цвета.</p>
+                            </div>
+                            <div class="mt-5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs text-stone-400">
+                                <span><i class="fa-regular fa-clock text-luxe-gold mr-1.5"></i> 2 ч</span>
+                                <button onclick="openBookingModal()" class="text-luxe-gold font-medium hover:underline flex items-center gap-1">
+                                    Записаться <i class="fa-solid fa-angle-right text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Empty Search State -->
+            <div id="no-services-msg" class="hidden text-center py-16 bg-white/50 rounded-3xl border border-luxe-border">
+                <i class="fa-solid fa-circle-exclamation text-3xl text-luxe-gold mb-3"></i>
+                <p class="font-serif-title text-2xl text-luxe-dark">Процедура не найдена</p>
+                <p class="text-xs text-luxe-muted mt-1">Попробуйте изменить поисковый запрос или напишите мастеру лично.</p>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB 3: ОТЗЫВЫ ================= -->
+        <section id="content-reviews" class="tab-content space-y-10">
+            
+            <!-- Overall Score Banner -->
+            <div class="bg-gradient-to-r from-stone-900 via-stone-800 to-stone-900 text-white p-10 sm:p-14 rounded-[2.5rem] shadow-luxe border border-stone-800 text-center relative overflow-hidden space-y-6">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-luxe-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="inline-flex items-center gap-1 text-amber-400 text-lg">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+
+                <div class="space-y-2">
+                    <h2 class="font-serif-title text-4xl sm:text-5xl font-light text-stone-100">Доверие и благодарность гостей</h2>
+                    <p class="text-stone-400 text-sm font-light max-w-xl mx-auto">
+                        Рейтинг 5.0 на основе реальных отзывов жителей Тюмени. Каждая счастливая улыбка — главный результат моей работы.
+                    </p>
+                </div>
+
+                <div class="pt-2">
+                    <a href="https://2gis.ru/tyumen/geo/70000001090065178" target="_blank" rel="noopener noreferrer" class="shimmer-btn inline-flex items-center gap-3 px-8 py-4 rounded-full bg-luxe-gold hover:bg-luxe-gold-hover text-white font-medium text-sm transition-all shadow-glow">
+                        <span>Читать все отзывы на 2ГИС</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Review Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Review 1 -->
+                <div class="bg-white p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all space-y-4 relative">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center font-serif-title font-semibold text-lg border border-luxe-gold/20">
+                                ЕА
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm text-stone-900">Елена А.</h4>
+                                <div class="flex text-amber-400 text-xs gap-1 mt-0.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-stone-100 text-stone-500 font-medium">2ГИС</span>
+                    </div>
+                    <p class="text-stone-600 text-sm leading-relaxed font-light italic">
+                        «Хожу к мастеру уже больше 3 лет. Всегда идеальное окрашивание и волосам после процедур отлично! Очень приятная, спокойная и уютная атмосфера в салоне.»
+                    </p>
+                    <div class="text-[11px] text-luxe-gold font-medium">Услуга: Креативное окрашивание</div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all space-y-4 relative">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center font-serif-title font-semibold text-lg border border-luxe-gold/20">
+                                МК
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm text-stone-900">Мария К.</h4>
+                                <div class="flex text-amber-400 text-xs gap-1 mt-0.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-stone-100 text-stone-500 font-medium">2ГИС</span>
+                    </div>
+                    <p class="text-stone-600 text-sm leading-relaxed font-light italic">
+                        «Делала холодное восстановление и стрижку. Волосы как шелк! Сразу видно, что мастер действительно с 15-летним опытом и искренне любит своё дело.»
+                    </p>
+                    <div class="text-[11px] text-luxe-gold font-medium">Услуга: Холодное восстановление</div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all space-y-4 relative">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center font-serif-title font-semibold text-lg border border-luxe-gold/20">
+                                ОС
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm text-stone-900">Ольга С.</h4>
+                                <div class="flex text-amber-400 text-xs gap-1 mt-0.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-stone-100 text-stone-500 font-medium">2ГИС</span>
+                    </div>
+                    <p class="text-stone-600 text-sm leading-relaxed font-light italic">
+                        «Прекрасное место в Тюмени. Очень внимательное отношение к пожеланиям, стрижка держит форму даже без укладки дома. Спасибо огромное!»
+                    </p>
+                    <div class="text-[11px] text-luxe-gold font-medium">Услуга: Женская стрижка</div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="bg-white p-8 rounded-3xl border border-luxe-border/80 shadow-sm hover:shadow-luxe transition-all space-y-4 relative">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3.5">
+                            <div class="w-12 h-12 rounded-full bg-luxe-gold-light text-luxe-gold flex items-center justify-center font-serif-title font-semibold text-lg border border-luxe-gold/20">
+                                АВ
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-sm text-stone-900">Александр В.</h4>
+                                <div class="flex text-amber-400 text-xs gap-1 mt-0.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-[11px] px-2.5 py-1 rounded-full bg-stone-100 text-stone-500 font-medium">2ГИС</span>
+                    </div>
+                    <p class="text-stone-600 text-sm leading-relaxed font-light italic">
+                        «Делал камуфляж седины и стрижку. Отличный результат, выглядит абсолютно натурально. Сервис на высшем уровне.»
+                    </p>
+                    <div class="text-[11px] text-luxe-gold font-medium">Услуга: Мужская стрижка + Камуфляж</div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-400 border-t border-stone-800 py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-light">
+            <div class="flex items-center gap-3">
+                <span class="font-serif-title text-xl text-luxe-gold tracking-widest">ÉLÉGANCE</span>
+                <span class="text-stone-600">|</span>
+                <span>Парикмахер-стилист в Тюмени</span>
+            </div>
+            
+            <p>© Все права защищены. Более 15 лет заботы о вашей красоте.</p>
+
+            <div class="flex items-center gap-6">
+                <a href="https://2gis.ru/tyumen/geo/70000001090065178" target="_blank" class="hover:text-luxe-gold transition-colors">Карта 2ГИС</a>
+                <a href="https://vk.ru/id40658150" target="_blank" class="hover:text-luxe-gold transition-colors">ВКонтакте</a>
+                <a href="tel:+79673814546" class="hover:text-luxe-gold transition-colors">+7 (967) 381-45-46</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Luxe Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-stone-950/60 backdrop-blur-md p-4 transition-all duration-300">
+        <div class="bg-white rounded-[2.5rem] p-8 sm:p-10 max-w-md w-full shadow-2xl border border-luxe-border relative transform transition-all duration-300 scale-95 opacity-0" id="modal-card">
+            
+            <!-- Close Button -->
+            <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-800 w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark text-base"></i>
+            </button>
+
+            <div class="space-y-3">
+                <div class="inline-block text-[10px] tracking-widest text-luxe-gold uppercase font-semibold">Персональная запись</div>
+                <h3 class="font-serif-title text-3xl font-medium text-stone-900">Выберите удобный канал связи</h3>
+                <p class="text-xs text-stone-500 font-light leading-relaxed">
+                    Напишите в сообщество или позвоните мастеру для подбора удобного времени консультации или процедуры.
+                </p>
+            </div>
+
+            <!-- Booking Options Buttons -->
+            <div class="space-y-4 pt-4">
+                
+                <!-- Option 1: VK -->
+                <a href="https://vk.ru/id40658150" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-4 rounded-2xl bg-stone-50 hover:bg-sky-50/80 border border-stone-200/80 hover:border-sky-200 transition-all duration-300 group shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-sky-500 text-white flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-brands fa-vk"></i>
+                        </div>
+                        <div>
+                            <span class="block font-medium text-sm text-stone-900">ВКонтакте</span>
+                            <span class="block text-[11px] text-stone-400">Личное сообщение мастеру</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long text-xs text-stone-400 group-hover:text-sky-600 group-hover:translate-x-1 transition-all"></i>
+                </a>
+
+                <!-- Option 2: Phone / WhatsApp -->
+                <a href="tel:+79673814546" class="flex items-center justify-between p-4 rounded-2xl bg-stone-50 hover:bg-emerald-50/80 border border-stone-200/80 hover:border-emerald-200 transition-all duration-300 group shadow-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-xl shadow-md group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <div>
+                            <span class="block font-medium text-sm text-stone-900">+7 (967) 381-45-46</span>
+                            <span class="block text-[11px] text-stone-400">Прямой звонок или WhatsApp</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right-long text-xs text-stone-400 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all"></i>
+                </a>
+
+            </div>
+
+            <div class="pt-2 text-center">
+                <span class="text-[10px] uppercase tracking-wider text-stone-400">Тюмень • По предварительной записи</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Tab switching logic
+        function switchTab(tabName) {
+            // Navigation button states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-luxe-dark', 'text-white', 'shadow-md');
+                btn.classList.add('text-luxe-muted');
+            });
+
+            const activeBtn = document.getElementById(`tab-${tabName}`);
+            if(activeBtn) {
+                activeBtn.classList.add('bg-luxe-dark', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-luxe-muted');
+            }
+
+            // Tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            const activeContent = document.getElementById(`content-${tabName}`);
+            if(activeContent) {
+                activeContent.classList.add('active');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Modal Logic
+        function openBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            const card = document.getElementById('modal-card');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            const card = document.getElementById('modal-card');
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        document.getElementById('booking-modal').addEventListener('click', function(e) {
+            if(e.target === this) {
+                closeBookingModal();
+            }
+        });
+
+        // Filter services
+        function filterServices() {
+            const query = document.getElementById('service-search').value.toLowerCase().trim();
+            const items = document.querySelectorAll('.service-item');
+            const blocks = document.querySelectorAll('.category-block');
+            let visibleCount = 0;
+
+            items.forEach(item => {
+                const title = item.querySelector('.service-title').textContent.toLowerCase();
+                if(title.includes(query)) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            blocks.forEach(block => {
+                const visibleItems = block.querySelectorAll('.service-item[style*="display: flex"]');
+                if(visibleItems.length === 0 && query !== '') {
+                    block.style.display = 'none';
+                } else {
+                    block.style.display = 'block';
+                }
+            });
+
+            const noMsg = document.getElementById('no-services-msg');
+            if(visibleCount === 0) {
+                noMsg.classList.remove('hidden');
+            } else {
+                noMsg.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
